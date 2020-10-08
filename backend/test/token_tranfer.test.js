@@ -1,4 +1,3 @@
-/*
 const TokenZendR = artifacts.require('./TokenZendR.sol');
 const BearToken = artifacts.require('./BearToken.sol');
 const CubToken = artifacts.require('./CubToken.sol');
@@ -25,12 +24,8 @@ contract('token_transfer', async (accounts) => {
     });
 
     it('should be able to transfer sender token to another wallet', async () => {
-        // When transfering  token, multiple by
-        //figure of decimal to get exact token e.g
-        //to send 5 BEAR = 5e18, where 18 is the decimal places
 
-        // let amount = new BigNumber(500000e18);
-        let amount = new BigNumber(500).toString();
+        let amount = new BigNumber(50).toString();
 
         // Account A approve contract to spend on behalf
         await bear.approve(sender.address, amount, { from: accountA });
@@ -39,7 +34,6 @@ contract('token_transfer', async (accounts) => {
 
         let balance = ((await bear.balanceOf(accountB)).toString());
 
-        balance.should.equal(amount.toString());
+        balance.should.equal(amount);
     });
 });
-*/
