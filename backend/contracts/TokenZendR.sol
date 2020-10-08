@@ -80,7 +80,11 @@ contract TokenZendR is Ownable, Pausable {
     /**
      * @dev remove address of token we no more support */
 
-    function removeToken(string memory symbol_) public onlyOwner returns (bool) {
+    function removeToken(string memory symbol_)
+        public
+        onlyOwner
+        returns (bool)
+    {
         require(tokens[symbol_] != address(0));
 
         delete (tokens[symbol_]);
@@ -117,8 +121,9 @@ contract TokenZendR is Ownable, Pausable {
                 failed_: true
             })
         );
+        
         uint256 transactionId = transactions.length - 1;
-        transactionIndexesToSender[from_].push(transactionId - 1);
+        transactionIndexesToSender[from_].push(transactionId);
 
         if (amount_ > ERC20Interface.allowance(from_, address(this))) {
             emit TransferFailed(from_, to_, amount_);
@@ -126,7 +131,7 @@ contract TokenZendR is Ownable, Pausable {
         }
         ERC20Interface.transferFrom(from_, to_, amount_);
 
-        transactions[transactionId - 1].failed_ = false;
+        transactions[transactionId].failed_ = false;
 
         emit TransferSuccessful(from_, to_, amount_);
     }
