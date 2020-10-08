@@ -41,7 +41,7 @@ contract TokenZendR is Ownable, Pausable {
      *  address contract address of token
      */
 
-    mapping(bytes32 => address) public tokens;
+    mapping(string => address) public tokens;
 
     ERC20 public ERC20Interface;
 
@@ -67,7 +67,7 @@ contract TokenZendR is Ownable, Pausable {
      * @dev add address of token to list of supported tokens using
      * token symbol as identifier in mapping */
 
-    function addNewToken(bytes32 symbol_, address address_)
+    function addNewToken(string memory symbol_, address address_)
         public
         onlyOwner
         returns (bool)
@@ -80,7 +80,7 @@ contract TokenZendR is Ownable, Pausable {
     /**
      * @dev remove address of token we no more support */
 
-    function removeToken(bytes32 symbol_) public onlyOwner returns (bool) {
+    function removeToken(string memory symbol_) public onlyOwner returns (bool) {
         require(tokens[symbol_] != address(0));
 
         delete (tokens[symbol_]);
@@ -97,7 +97,7 @@ contract TokenZendR is Ownable, Pausable {
      */
 
     function transferTokens(
-        bytes32 symbol_,
+        string memory symbol_,
         address to_,
         uint256 amount_
     ) public whenNotPaused {
