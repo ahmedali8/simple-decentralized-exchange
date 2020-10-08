@@ -25,4 +25,11 @@ contract('token_management', async (accounts) => {
 
         address.should.equal('0x3472059945ee170660a9A97892a3cf77857Eba3A');
     });
+
+    it('should remove unused supported token address', async () => {
+        await sender.removeToken('OPEN');
+
+        let address = await sender.tokens.call('OPEN');
+        address.should.equal('0x0000000000000000000000000000000000000000');
+    });
 });
