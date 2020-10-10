@@ -1,11 +1,13 @@
 import React from 'react';
+import { GlobalProvider } from './contextAPI/GlobalState';
+
 import './App.css';
 
 function App() {
     return (
-        <div>
+        <GlobalProvider>
             Hello World
-        </div>
+        </GlobalProvider>
     );
 }
 
