@@ -54,3 +54,11 @@ export const closeTransfer = () => {
         type: 'CLOSE_TRANSFER',
     }
 };
+
+export const onInputChangeUpdateField = (name, value) => {
+    return {
+        type: 'UPDATE_FIELD',
+        name: name,
+        value: value
+    }
+};

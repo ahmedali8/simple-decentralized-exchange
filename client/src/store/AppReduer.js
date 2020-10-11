@@ -50,6 +50,14 @@ export default (state, action) => {
                 fields: {}
             }
 
+        case 'UPDATE_FIELD':
+            let fields = state.fields;
+            fields[action.name] = action.value
+            return {
+                ...state,
+                fields: fields
+            }
+
         default:
             return state;
     }
