@@ -28,6 +28,13 @@ export const setupNetwork = (networkName) => {
     };
 };
 
+export const setupGasPrice = (gasPrice) => {
+    return {
+        type: 'SETUP_GAS_PRICE',
+        payload: gasPrice
+    };
+};
+
 export const addTokens = (tokens) => {
     return {
         type: 'ADD_TOKENS',
