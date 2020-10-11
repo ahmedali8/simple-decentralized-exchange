@@ -36,12 +36,14 @@ export const loadBlockchainData = async (dispatch) => {
             dispatch(setupGasPrice(+gasPrice));
 
             Tokens.forEach(async (token) => {
+
                 let erc20Token = new web3.eth.Contract(token.abi, token.address);
-                console.log(erc20Token)
+                
                 await erc20Token.methods.balanceOf(accounts[0]).call((err, res) => {
                     if (!err) {
-                        let balance = res;
-
+                        let precision = '1e' + token.decimal;
+                        let balance = +(res / precision);
+                        
                         if (balance > 0) {
                             let tokens = {
                                 name: token.name,
@@ -50,7 +52,7 @@ export const loadBlockchainData = async (dispatch) => {
                                 icon: token.icon,
                                 address: token.address,
                                 abi: token.abi,
-                                balance: res,
+                                balance: balance,
                             };
                             dispatch(addTokens(tokens));
                         }
@@ -58,7 +60,6 @@ export const loadBlockchainData = async (dispatch) => {
                 });
 
             });
-
 
         }
         else {
@@ -73,4 +74,10 @@ export const loadBlockchainData = async (dispatch) => {
         }
 
     }
+}
+
+
+// For Transferring token
+export const TransferAsync = async (state, dispatch) => {
+
 }
