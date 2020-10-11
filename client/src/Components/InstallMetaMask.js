@@ -10,7 +10,7 @@ function InstallMetaMask() {
             <div className="modal-content">
                 <p className="image download-metamask">
                     <a href="https://metamask.io/" rel="noopener noreferrer" target="_blank">
-                        <img src="https://metamask.io/img/metamask.png" alt=""></img>
+                        <img src="https://metamask.io/images/mm-logo.svg" alt=""></img>
                     </a>
                 </p>
             </div>
