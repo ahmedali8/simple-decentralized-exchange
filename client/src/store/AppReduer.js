@@ -25,6 +25,12 @@ export default (state, action) => {
                 network: action.payload
             }
 
+        case 'SETUP_GAS_PRICE':
+            return {
+                ...state,
+                defaultGasPrice: action.payload
+            }
+
         case 'ADD_TOKENS':
             return {
                 ...state,
