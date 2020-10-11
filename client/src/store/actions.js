@@ -48,3 +48,9 @@ export const newTransfer = (index) => {
         payload: index
     }
 };
+
+export const closeTransfer = () => {
+    return {
+        type: 'CLOSE_TRANSFER',
+    }
+};
