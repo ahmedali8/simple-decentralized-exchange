@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect, useReducer } from 'react';
 import AppReducer from '../store/AppReduer';
 import { loadBlockchainData } from '../store/asyncActions';
-import Web3 from 'web3';
 
 // initial state 
 const initialState = {
@@ -13,8 +12,18 @@ const initialState = {
     account: null,
     contract: null,
     inProgress: false,
+    tzAddress: null,
+    tx: null,
     tokens: [],
-    transferDetails: {}
+    transferDetails: {},
+    fields: {
+        receiver: null,
+        amount: null,
+        gasPrice: null,
+        gasLimit: null,
+    },
+    defaultGasPrice: null,
+    defaultGasLimit: 200000
 };
 
 // create Global State 
