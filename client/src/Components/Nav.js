@@ -1,12 +1,16 @@
 import React from 'react';
+import { useStore } from '../contextAPI/GlobalState';
 
 
-function Nav(props) {
+function Nav() {
+
+    const [state, dispatch] = useStore();
+
     return (
         <nav className="navbar is-link" aria-label="main navigation">
             <div className="navbar-brand">
                 <a className="navbar-item" href="/">
-                    <strong><i className="fa fa-coins"></i> {props.appName}</strong>
+                    <strong><i className="fa fa-coins"></i> {state.appName}</strong>
                 </a>
 
                 <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false">
@@ -22,7 +26,7 @@ function Nav(props) {
                             <span className="tag">
                                 <i className="fa fa-signal"></i> &nbsp; Network
                             </span>
-                            <span className="tag is-danger">{props.network}</span>
+                            <span className="tag is-danger">{state.network}</span>
                         </div>
                     </a>
                 </div>
