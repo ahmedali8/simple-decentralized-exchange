@@ -1,8 +1,9 @@
 // This Container component holds several other components, 
 // toggles some components display as state changes and passes 
-// down their respectives props to them passed from app.js to it.
+// down their respectives state to them passed from app.js to it.
 
 import React from 'react';
+import { useStore } from '../contextAPI/GlobalState';
 import AddressBar from './AddressBar';
 import TokenBlock from './TokenBlock';
 import TradeMarkBlock from './TradeMarkBlock';
@@ -12,39 +13,37 @@ import TransferHeader from './TransferHeader';
 import SuccessTransaction from './SuccessTransaction';
 
 
-function Container(props) {
+function Container() {
+
+    const [state, dispatch] = useStore();
+
     return (
         <section className="container">
             <div className="columns">
                 <div className="is-half is-offset-one-quarter column">
                     <div className="panel">
                         {
-                            props.tx ?
-                                <SuccessTransaction tx={props.tx} /> :
+                            state.tx ?
+                                <SuccessTransaction tx={state.tx} /> :
                                 ''
                         }
 
-                        <AddressBar account={props.account} tx={props.tx} />
+                        <AddressBar account={state.account} tx={state.tx} />
                         {
-                            props.transferDetail.hasOwnProperty('name') ?
+                            state.transferDetails.hasOwnProperty('name') ?
                                 <div>
-                                    <TransferHeader token={props.transferDetail} />
-                                    <TransferToken closeTransfer={props.closeTransfer}
-                                        transferDetail={props.transferDetail}
-                                        fields={props.fields}
-                                        account={props.account}
-                                        Transfer={props.Transfer}
-                                        inProgress={props.inProgress}
-                                        defaultGasPrice={props.defaultGasPrice}
-                                        defaultGasLimit={props.defaultGasLimit}
-                                        onInputChangeUpdateField={props.onInputChangeUpdateField} />
+                                    <TransferHeader token={state.transferDetails} />
+                                    <TransferToken />
                                 </div> :
-                                <div className={props.tx ? 'is-hidden' : ''}>
+                                <div className={state.tx ? 'is-hidden' : ''}>
                                     <SortTokenBlock />
-                                    <TokenBlock newTransfer={props.newTransfer} tokens={props.tokens} />
+                                    <TokenBlock
+                                        newTransfer={state.newTransfer}
+                                        tokens={state.tokens}
+                                    />
                                 </div>
                         }
-                        <TradeMarkBlock tx={props.tx} />
+                        <TradeMarkBlock tx={state.tx} />
                     </div>
                 </div>
             </div>
