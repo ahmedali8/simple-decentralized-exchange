@@ -19,10 +19,22 @@ export default (state, action) => {
                 account: action.payload
             }
 
+        case 'SETUP_NETWORK':
+            return {
+                ...state,
+                network: action.payload
+            }
+
         case 'ADD_TOKENS':
             return {
                 ...state,
                 tokens: [...state.tokens, action.payload]
+            }
+
+        case 'NEW_TRANSFER':
+            return {
+                ...state,
+                transferDetails: state.tokens[action.payload]
             }
 
         default:
