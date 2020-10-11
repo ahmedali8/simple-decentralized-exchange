@@ -21,9 +21,23 @@ export const setupAccount = (account) => {
     };
 };
 
+export const setupNetwork = (networkName) => {
+    return {
+        type: 'SETUP_NETWORK',
+        payload: networkName
+    };
+};
+
 export const addTokens = (tokens) => {
     return {
         type: 'ADD_TOKENS',
         payload: tokens
     };
+};
+
+export const newTransfer = (index) => {
+    return {
+        type: 'NEW_TRANSFER',
+        payload: index
+    }
 };
