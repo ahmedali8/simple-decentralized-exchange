@@ -43,6 +43,13 @@ export default (state, action) => {
                 transferDetails: state.tokens[action.payload]
             }
 
+        case 'CLOSE_TRANSFER':
+            return {
+                ...state,
+                transferDetails: {},
+                fields: {}
+            }
+
         default:
             return state;
     }
