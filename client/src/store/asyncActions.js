@@ -1,6 +1,6 @@
 // Async Actions
 import Web3 from 'web3'
-import { setupWeb3, setupContract, setupAccount, addTokens } from './actions';
+import { setupWeb3, setupContract, setupAccount, setupNetwork, addTokens } from './actions';
 import TokenZendR from '../build/contracts/TokenZendR.json';
 import Tokens from '../Tokens/all';
 
@@ -25,6 +25,10 @@ export const loadBlockchainData = async (dispatch) => {
             // LOADING ACCOUNT
             const accounts = await web3.eth.getAccounts();
             dispatch(setupAccount(accounts[0]));
+
+            // LOADING NETWORK
+            const networkName = await web3.eth.net.getNetworkType();
+            dispatch(setupNetwork(networkName));
 
             Tokens.forEach(async (token) => {
                 let erc20Token = new web3.eth.Contract(token.abi, token.address);
