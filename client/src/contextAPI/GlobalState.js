@@ -1,6 +1,9 @@
 import React, { createContext, useContext, useEffect, useReducer } from 'react';
 import AppReducer from '../store/AppReduer';
 import { loadBlockchainData } from '../store/asyncActions';
+import Bear from '../Tokens/Bear';
+
+let {address, decimal, name, symbol, icon, abi} = Bear;
 
 // initial state 
 const initialState = {
@@ -23,7 +26,7 @@ const initialState = {
         gasLimit: null,
     },
     defaultGasPrice: null,
-    defaultGasLimit: 200000
+    defaultGasLimit: 800000
 };
 
 // create Global State 

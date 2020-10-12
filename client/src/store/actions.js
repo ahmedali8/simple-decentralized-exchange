@@ -7,10 +7,11 @@ export const setupWeb3 = (web3) => {
     };
 };
 
-export const setupContract = (contract) => {
+export const setupContract = (contract, address) => {
     return {
         type: 'SETUP_CONTRACT',
-        payload: contract
+        contract: contract,
+        address: address
     };
 };
 

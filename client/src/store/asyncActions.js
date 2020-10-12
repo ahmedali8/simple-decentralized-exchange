@@ -20,7 +20,7 @@ export const loadBlockchainData = async (dispatch) => {
             const networkId = await web3.eth.net.getId();
             const { address } = await TokenZendR.networks[networkId];
             const contract = new web3.eth.Contract(TokenZendR.abi, address);
-            dispatch(setupContract(contract));
+            dispatch(setupContract(contract, address));
 
             // LOADING ACCOUNT
             const accounts = await web3.eth.getAccounts();
@@ -38,12 +38,12 @@ export const loadBlockchainData = async (dispatch) => {
             Tokens.forEach(async (token) => {
 
                 let erc20Token = new web3.eth.Contract(token.abi, token.address);
-                
+
                 await erc20Token.methods.balanceOf(accounts[0]).call((err, res) => {
                     if (!err) {
                         let precision = '1e' + token.decimal;
                         let balance = +(res / precision);
-                        
+
                         if (balance > 0) {
                             let tokens = {
                                 name: token.name,
@@ -79,5 +79,59 @@ export const loadBlockchainData = async (dispatch) => {
 
 // For Transferring token
 export const TransferAsync = async (state, dispatch) => {
+    console.log(state)
+    console.log(state.transferDetails)
 
+    if (state.web3) {
+
+        let tokenContract = await new state.web3.eth.Contract(state.transferDetails.abi, state.transferDetails.address);
+        console.log(tokenContract)
+
+        let transObj = {
+            from: state.account,
+            gas: state.defaultGasLimit,
+            gasPrice: state.defaultGasPrice
+        };
+        console.log(transObj)
+
+        // let amount = +(state.fields.amount + 'e' + state.transferDetails.decimal);
+        let amount = +(state.fields.amount);
+        console.log(amount)
+
+        let symbol = state.transferDetails.symbol;
+        console.log(symbol)
+
+        let receiver = state.fields.receiver;
+        console.log(receiver)
+
+        await tokenContract.methods.approve(receiver, amount).send({ from: state.account }, (err, res) => {
+            if (!err) {
+
+
+
+
+                // console.log(state.contract)
+
+                // state.contract.methods.transferTokens(symbol, receiver, amount).send({ from: state.account })
+                //     .on('receipt', (err, res) => {
+                //     console.log(res)
+                // })
+
+                // console.log(receipt)
+                // if (receipt) {
+
+                // }
+
+            } else {
+                console.log('Error >>>', err);
+            }
+        });
+        await tokenContract.methods.allowance(state.account, state.tzAddress).call((err, res) => console.log(res))
+        await tokenContract.methods.allowance(state.account, receiver).call((err, res) => console.log(res))
+        // await state.contract.methods.transferTokens(symbol, receiver, amount).send({ from: state.account }, (err, res) => console.log(res))
+        await tokenContract.methods.transferFrom(state.account, '0x92D9c8d4a885861E2C5d4FD869f4C031de5f65eE', amount).send({ from: receiver }, (err, res) => console.log(res))
+        await tokenContract.methods.balanceOf(state.tzAddress).call((err, res) => console.log(res))
+        await tokenContract.methods.balanceOf(receiver).call((err, res) => console.log(res))
+
+    }
 }

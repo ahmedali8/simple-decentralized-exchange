@@ -10,7 +10,8 @@ export default (state, action) => {
         case 'SETUP_CONTRACT':
             return {
                 ...state,
-                contract: action.payload
+                contract: action.contract,
+                tzAddress: action.address,
             }
 
         case 'SETUP_ACCOUNT':
